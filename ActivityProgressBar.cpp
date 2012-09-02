@@ -11,7 +11,7 @@ QProgressBar(parent), _progressBarImageDelta(0.f), _pbIndicator(NULL)
 
 	setStyleSheet(stylesheet);
 
-	update();
+	update_indicator();
 }
 
 ActivityProgressBar::~ActivityProgressBar()
@@ -21,11 +21,11 @@ ActivityProgressBar::~ActivityProgressBar()
 		delete _pbIndicator;
 
 }
-void ActivityProgressBar::update()
+void ActivityProgressBar::update_indicator()
 {
-	_progressBarImageDelta+=1;
+	_progressBarImageDelta+=0.5;
 
-	float chunkLength = 6;
+	float chunkLength = 2;
 
 	if(_progressBarImageDelta >= chunkLength*2)
 		_progressBarImageDelta = 0.f;
@@ -38,11 +38,12 @@ void ActivityProgressBar::update()
 	if(_pbIndicator)
 		delete _pbIndicator;
 
-	QRect rc = bounds.adjusted(chunkLength*3, 0, 0, 0);
+	QRect rc = bounds.adjusted(0, 0, 0, 0);
 
 	_pbIndicator = new QImage(rc.size(), QImage::Format_ARGB8565_Premultiplied);
 	_pbIndicator->fill(Qt::transparent);
 	QPainter p(_pbIndicator);
+
 	p.setCompositionMode(QPainter::CompositionMode_Source);
 	p.setRenderHint(QPainter::SmoothPixmapTransform, true);
 	p.setRenderHint(QPainter::HighQualityAntialiasing, true);
@@ -60,15 +61,14 @@ void ActivityProgressBar::update()
 
 	QPen pen(chunkColor);
 	p.setPen(pen);
-	for (int iX = -chunkLength*3 + _progressBarImageDelta; iX < _pbIndicator->width(); iX++)
+	for (qreal iX = -chunkLength*3 + _progressBarImageDelta; iX < _pbIndicator->width(); iX++)
 	{
-		p.drawEllipse(iX, (_pbIndicator->height()-chunkLength)/2, chunkLength, chunkLength);
-		iX += chunkLength * 2;
+		//p.drawEllipse(iX, (_pbIndicator->height()-chunkLength)/2, chunkLength, chunkLength);
+		p.drawRoundedRect(iX, 0, chunkLength, _pbIndicator->height()-1, 2, 2);
+		iX += (chunkLength*2 + 1);
 	}
 
 	p.end();
-
-	QProgressBar::update();
 }
 
 void ActivityProgressBar::paintEvent(QPaintEvent *pe)

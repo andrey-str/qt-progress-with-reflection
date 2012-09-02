@@ -28,11 +28,11 @@ protected:
 	 */
 	virtual void paintEvent(QPaintEvent *pe);
 private slots:
-	/** Internal private slot, used for updating progress bar content. Connected to private timer object
+	/** Internal private slot, used for updating progress bar content.
 	 */
-	void update();
+	void update_indicator();
 private:
-	float _progressBarImageDelta;
-	QImage* _pbIndicator;
+	qreal _progressBarImageDelta;
+	QImage* _pbIndicator; //! Temp image for drawing on widget update(implemented in update_indicator method)
 };
 #endif

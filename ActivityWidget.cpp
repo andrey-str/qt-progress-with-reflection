@@ -21,7 +21,7 @@ QWidget(parent), _useReflection(false), _label(NULL), _activityProgressBar(NULL)
 	_timer = new QTimer(this);
 
 	connect(_timer, SIGNAL(timeout()), this, SLOT(update()));
-	connect(_timer, SIGNAL(timeout()), _activityProgressBar, SLOT(update()));
+	connect(_timer, SIGNAL(timeout()), _activityProgressBar, SLOT(update_indicator()));
 
 	_timer->start(1000/25);
 
