@@ -16,8 +16,8 @@ QWidget(parent), _useReflection(false), _label(NULL), _activityProgressBar(NULL)
 	_reflectionEffect = new MirrorGraphicsEffect();
 	_reflectionEffect->setEnabled(_useReflection);	
 	this->setGraphicsEffect(_reflectionEffect);
-		
-	this->setUpdatesEnabled(true);
+	
+	connect(_activityProgressBar, SIGNAL(repaint_owner()), this, SLOT(update()));
 
 	setText("Activity description");
 
@@ -35,7 +35,6 @@ QWidget(parent), _useReflection(false), _label(NULL), _activityProgressBar(NULL)
 
 	showReflection(true);
 }
-
 
 void ActivityWidget::showReflection(bool showReflection /* = true */)
 {
