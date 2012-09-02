@@ -11,7 +11,7 @@ class MirrorGraphicsEffect : public QGraphicsEffect
 {
 	Q_OBJECT
 public:
-	/** Class contructor
+	/** Class constructor
 	 * @param parent - parent object
 	 */
 	MirrorGraphicsEffect(QObject* parent = NULL);
@@ -32,7 +32,6 @@ public slots:
 	 * @param value - reflection offset
 	 */
 	void setReflectionOffset(float value);
-
 private:
 	float _reflectionOffset; //! Reflection offset. Can be negative. This value is distance between reflection and widget. 
 							 //! If it is negative, reflection may going to the widget itself.

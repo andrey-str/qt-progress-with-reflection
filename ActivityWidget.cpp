@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QGraphicsBlurEffect>
+#include <QTimer>
 
 ActivityWidget::ActivityWidget(QWidget* parent /* = NULL */):
 QWidget(parent), _useReflection(false), _label(NULL), _activityProgressBar(NULL), _reflectionEffect(NULL),
@@ -17,7 +18,12 @@ QWidget(parent), _useReflection(false), _label(NULL), _activityProgressBar(NULL)
 	_reflectionEffect->setEnabled(_useReflection);	
 	this->setGraphicsEffect(_reflectionEffect);
 	
-	connect(_activityProgressBar, SIGNAL(repaint_owner()), this, SLOT(update()));
+	_timer = new QTimer(this);
+
+	connect(_timer, SIGNAL(timeout()), this, SLOT(update()));
+	connect(_timer, SIGNAL(timeout()), _activityProgressBar, SLOT(update()));
+
+	_timer->start(1000/25);
 
 	setText("Activity description");
 

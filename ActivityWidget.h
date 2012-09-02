@@ -55,10 +55,11 @@ private:
 	MirrorGraphicsEffect* _reflectionEffect; //! Variable holds reflection effect class instance
 	ActivityProgressBar* _activityProgressBar; //! Variable holds custom progress bar widget instance
 	QLabel* _label; //! Widget for showing text above the progress bar
+	QTimer* _timer;
 private:
 	bool _useReflection;
 	float _reflectionDistance;
-
+	
 };
 
 #endif
