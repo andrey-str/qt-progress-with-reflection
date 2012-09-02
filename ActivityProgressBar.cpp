@@ -27,7 +27,7 @@ void ActivityProgressBar::update_indicator()
 
 	float chunkLength = 2;
 
-	if(_progressBarImageDelta >= chunkLength*2)
+	if(_progressBarImageDelta >= (chunkLength*2 + 1))
 		_progressBarImageDelta = 0.f;
 
 	// draw on _pbIndicator
